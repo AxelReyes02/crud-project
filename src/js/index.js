@@ -53,13 +53,36 @@
 
             //Recorrer el array, se ejecuta el foreach, se pinta por cada element del array
             arrayActividades.forEach(element => {
-            listaActividadesUI.innerHTML += `  <div class="alert alert-danger" role="alert"><i class="material-symbols-outlined float-left m2-3">accessibility</i><b>${element.actividad}</b> - ${element.estado}<span class="float-right"><span class="material-symbols-outlined"> done </span><span class="material-symbols-outlined"> delete </span></span></div>`
+            listaActividadesUI.innerHTML += `<div class="alert alert-danger" role="alert"><span class="material-symbols-outlined float-left m2-3">accessibility</span><b>${element.actividad}</b> - ${element.estado}<span class="float-right"><span class="material-symbols-outlined">done</span><span class="material-symbols-outlined">delete</span></span></div>`
             });
+
         }
 
+    }
+
+
+    const EliminarDB = (actividad) => {
+
+     let indexArray;
+        arrayActividades.forEach(( elemento , index ) => {
+            //comparacion elemento html con la DB
+            //Flujo:
+                //Presionar papelera ejecuta fx EliminarDB viajando el texto
+                //const EliminaDB recorriendo el Array de la DB
+                //Comparacion 
+            if(elemento.actividad === actividad){
+                indexArray=index;
+            }
+
+        })
+
+        //Se debe mandar al LS, por que ya no tiene un elemento
+        arrayActividades.splice(indexArray,1);
+        GuardarDB();
 
 
     }
+
 
 
 
@@ -94,9 +117,25 @@ formularioUI.addEventListener('submit', (e) => {
 document.addEventListener('DOMContentLoaded', PintarDB);
 
 
-listaActividadesUI.addEventListener('onsubmit', (e) => {
+listaActividadesUI.addEventListener('click', (e) => {
 
     e.preventDefault();
-    console.log(e);
 
+    if(e.target.innerHTML === 'done' || e.target.innerHTML === 'delete'){
+
+    let texto = e.target.innerHTML;
+        if(e.target.innerHTML === 'delete'){
+            //  Accion de eliminar
+            EliminarDB(texto);
+        }
+        
+        if(e.target.innerHTML === 'done'){
+            
+
+
+        }
+
+
+
+     }
 });
