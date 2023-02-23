@@ -32,6 +32,9 @@ const GuardarDB = () => {
 
   //Con esto se visualiza en el cliente al hacer submit
   PintarDB();
+
+  
+
 };
 
 //Funcion para mandar inf. de lS a html, se ejecuta cuando carga el sitio
@@ -52,10 +55,12 @@ const PintarDB = () => {
       listaActividadesUI.innerHTML += `<div class="alert alert-danger" role="alert"><span class="material-symbols-outlined float-left m2-3">accessibility</span><b>${
         element.actividad 
       }</b> - ${
-        element.estado ? "Completado" : "Sin completar"
-      }<span class="float-right"><span class="material-symbols-outlined">done</span><span class="material-symbols-outlined" onclick= EliminarDB(${index})>delete</span><span class="material-symbols-outlined" onclick= EditarDB(${index},${element.actividad})>edit
+        element.estado ? "Completado" : "Sin completar" }<span class="float-right"><span class="material-symbols-outlined">done</span><span class="material-symbols-outlined" onclick=EliminarDB(${index})>delete</span><span class="material-symbols-outlined" onclick=EditarDB(${index},'${element.actividad}')>edit
       </span></span></div>`;
     });
+
+    // Arrriba cambios para mandar a input informacion editada
+
     //Agregó  despues de .estado seccion completado - sin completar
     // / ? if , : else
 
@@ -85,13 +90,44 @@ const EliminarDB = (i) => {
 };
 
 
-const EditarDB = ( item) => {
+const EditarDB = (index, item) => {
 
     actividadUI.value = item;
 
-    console.log(index);
+
     //arrayActividades.splice(i,1,item);
 
+    const add_button = document.querySelector("#add");
+
+    add_button.style.display= "none";
+
+
+    const update_button = document.createElement("button");
+    update_button.innerHTML = "Actualizar";
+    update_button.className ="btn btn-primary";
+
+    formularioUI.appendChild(update_button);
+
+
+  update_button.addEventListener("click", e => {
+      e.preventDefault();
+    arrayActividades.splice(index,1,{
+      ...arrayActividades[index],  
+    "actividad":actividadUI.value
+  })
+
+  localStorage.setItem("rutina", JSON.stringify(arrayActividades));
+
+  PintarDB();
+
+
+  update_button.hidden = true;
+
+  add_button.style.display= "block";
+  
+  formularioUI.reset()
+
+})
 
 
 
