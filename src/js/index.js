@@ -26,6 +26,7 @@ const CrearItem = (actividad) => {
 
 //Guardar en localStorage
 const GuardarDB = () => {
+  
   //local storage solo almacena strings, se usa JSON.stringify,|Obj-Strng| queda en txt(string) pero en formato JSON
   //rutina: key de ls | arrayActividades: value de ls
   localStorage.setItem("rutina", JSON.stringify(arrayActividades));
@@ -54,8 +55,8 @@ const PintarDB = () => {
       //Se aplicó cambio ,  index
       listaActividadesUI.innerHTML += `<div class="alert alert-danger" role="alert"><span class="material-symbols-outlined float-left m2-3">accessibility</span><b>${
         element.actividad 
-      }</b> - ${
-        element.estado ? "Completado" : "Sin completar" }<span class="float-right"><span class="material-symbols-outlined">done</span><span class="material-symbols-outlined" onclick=EliminarDB(${index})>delete</span><span class="material-symbols-outlined" onclick=EditarDB(${index},'${element.actividad}')>edit
+      }</b> -${
+        element.estado ? "Completado" : "" }<span class="float-right"><span class="material-symbols-outlined">done</span><span class="material-symbols-outlined" onclick=EliminarDB(${index})>delete</span><span class="material-symbols-outlined" onclick=EditarDB(${index},'${element.actividad}')>edit
       </span></span></div>`;
     });
 
@@ -125,7 +126,7 @@ const EditarDB = (index, item) => {
 
   add_button.style.display= "block";
   
-  formularioUI.reset()
+  formularioUI.reset();
 
 })
 
